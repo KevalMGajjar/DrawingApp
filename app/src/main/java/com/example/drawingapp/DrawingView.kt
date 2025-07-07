@@ -142,11 +142,24 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
                 return
             }
 
+            // Step 1: Clear existing paths and reset the current path
+            paths.clear()
+            drawPath.reset()
+
+            // Step 2: Clear the canvas
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
+
+            // Step 3: Scale and set the background image
             imageBitmap = Bitmap.createScaledBitmap(loadedBitmap, width, height, true)
+
+            // Step 4: Draw background image onto the canvas
             canvas.drawBitmap(imageBitmap!!, 0f, 0f, null)
+
+            // Step 5: Redraw the view
             invalidate()
         }
     }
+
 
     private fun setUpDrawing() {
         drawPath = FingerPath(color, brushSize)
